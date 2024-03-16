@@ -15,7 +15,10 @@ class WordDefinition extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Test app',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
+        colorScheme: ColorScheme.fromSeed(
+          background: Colors.blueGrey[900],
+          seedColor: Colors.greenAccent,
+        ),
         useMaterial3: true,
       ),
       home: const HomePage(),
