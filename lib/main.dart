@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:word_definition_app/ui/home/home_page.dart';
 
 void main() {
   runApp(const WordDefinition());
@@ -17,7 +18,7 @@ class WordDefinition extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
     );
   }
 }
