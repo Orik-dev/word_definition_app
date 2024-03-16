@@ -1,27 +1,20 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'word_dictionary.g.dart';
 
 @JsonSerializable()
 class WordDictionary {
-  @JsonKey(name: "word")
-  String word;
-  @JsonKey(name: "phonetic")
-  String phonetic;
-  @JsonKey(name: "phonetics")
-  List<Phonetic> phonetics;
-  @JsonKey(name: "origin")
-  String origin;
-  @JsonKey(name: "meanings")
-  List<Meaning> meanings;
-
   WordDictionary({
-    required this.word,
-    required this.phonetic,
-    required this.phonetics,
-    required this.origin,
-    required this.meanings,
+    this.word,
+    this.phonetics,
+    this.meanings,
   });
+
+  String? word;
+  List<Phonetic>? phonetics;
+  List<Meaning>? meanings;
 
   factory WordDictionary.fromJson(Map<String, dynamic> json) => _$WordDictionaryFromJson(json);
 
@@ -30,15 +23,13 @@ class WordDictionary {
 
 @JsonSerializable()
 class Meaning {
-  @JsonKey(name: "partOfSpeech")
-  String partOfSpeech;
-  @JsonKey(name: "definitions")
-  List<Definition> definitions;
-
   Meaning({
-    required this.partOfSpeech,
-    required this.definitions,
+    this.partOfSpeech,
+    this.definitions,
   });
+
+  String? partOfSpeech;
+  List<Definition>? definitions;
 
   factory Meaning.fromJson(Map<String, dynamic> json) => _$MeaningFromJson(json);
 
@@ -47,21 +38,15 @@ class Meaning {
 
 @JsonSerializable()
 class Definition {
-  @JsonKey(name: "definition")
-  String definition;
-  @JsonKey(name: "example")
-  String example;
-  @JsonKey(name: "synonyms")
-  List<dynamic> synonyms;
-  @JsonKey(name: "antonyms")
-  List<dynamic> antonyms;
-
   Definition({
-    required this.definition,
-    required this.example,
-    required this.synonyms,
-    required this.antonyms,
+    this.definition,
+    this.example,
+    this.synonyms,
   });
+
+  String? definition;
+  String? example;
+  List<String>? synonyms;
 
   factory Definition.fromJson(Map<String, dynamic> json) => _$DefinitionFromJson(json);
 
@@ -70,17 +55,21 @@ class Definition {
 
 @JsonSerializable()
 class Phonetic {
-  @JsonKey(name: "text")
-  String text;
-  @JsonKey(name: "audio")
-  String? audio;
-
   Phonetic({
-    required this.text,
+    this.text,
     this.audio,
   });
+
+  String? text;
+  String? audio;
 
   factory Phonetic.fromJson(Map<String, dynamic> json) => _$PhoneticFromJson(json);
 
   Map<String, dynamic> toJson() => _$PhoneticToJson(this);
 }
+
+List<WordDictionary> wordResponseFromJson(String str) =>
+    List<WordDictionary>.from(json.decode(str).map((x) => WordDictionary.fromJson(x)));
+
+String wordResponseToJson(List<WordDictionary> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

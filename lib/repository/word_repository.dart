@@ -1,24 +1,18 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:word_definition_app/models/word_dictionary.dart';
 import 'package:word_definition_app/services/http_service.dart';
 
 class WordRepository {
   Future<List<WordDictionary>?> getWordsFromDictionary(String query) async {
+    final response = await HttpService.getRequest('en/$query');
     try {
-      final response = await HttpService.getRequest('en/$query');
 
       if (response.statusCode == 200) {
-        final List<dynamic> jsonList = jsonDecode(response.body);
-        final List<WordDictionary> resultList = [];
+        final result = wordResponseFromJson(response.body);
 
-        for (var jsonData in jsonList) {
-          final wordDictionary = WordDictionary.fromJson(jsonData);
-          resultList.add(wordDictionary);
-        }
-        return resultList;
+        return result;
       } else {
-        return null;
+        return [];
       }
     } on SocketException catch (e) {
       throw e;

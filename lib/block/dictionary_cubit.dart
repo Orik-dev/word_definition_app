@@ -20,6 +20,7 @@ class DictionaryCubit extends Cubit<DictionaryState> {
       if(words == null){
         emit(ErrorState('There is some issue'));
       }else{
+        print(words.toString());
         WordSearchedState(words);
       }
     } on Exception catch (e) {

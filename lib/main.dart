@@ -27,7 +27,7 @@ class WordDefinition extends StatelessWidget {
       ),
       home: BlocProvider(
         create: (context) => DictionaryCubit(WordRepository()),
-        child: const HomePage(),
+        child:  HomePage(),
       ),
     );
   }

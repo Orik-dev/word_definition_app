@@ -7,7 +7,6 @@ class GetSearchFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final cubit = context.watch<DictionaryCubit>();
 
     return Container(
@@ -27,23 +26,22 @@ class GetSearchFormWidget extends StatelessWidget {
           TextField(
             controller: cubit.queryController,
             decoration: InputDecoration(
-                hintText: 'Найдите ваше слово..',
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: Colors.transparent),
-                ),
-              fillColor:  Colors.grey[100],
+              hintText: 'Найдите ваше слово..',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Colors.transparent),
+              ),
+              fillColor: Colors.grey[100],
               filled: true,
               prefixIcon: const Icon(Icons.search),
               hintStyle: const TextStyle(color: Colors.grey),
             ),
-
           ),
           const Spacer(),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: (){
+              onPressed: () {
                 cubit.getWordSearched();
               },
               style: ElevatedButton.styleFrom(
@@ -57,4 +55,12 @@ class GetSearchFormWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+getLoadingWidget(){
+  return const Center(child: CircularProgressIndicator(),);
+}
+
+getErrorWidget(message){
+  return Center(child: Text(message));
 }
