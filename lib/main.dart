@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:word_definition_app/block/dictionary_cubit.dart';
+import 'package:word_definition_app/repository/word_repository.dart';
 import 'package:word_definition_app/ui/home/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const WordDefinition());
+  const app = WordDefinition();
+  runApp(app);
 }
 
 class WordDefinition extends StatelessWidget {
@@ -21,7 +25,10 @@ class WordDefinition extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: BlocProvider(
+        create: (context) => DictionaryCubit(WordRepository()),
+        child: const HomePage(),
+      ),
     );
   }
 }
