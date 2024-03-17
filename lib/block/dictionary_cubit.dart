@@ -17,14 +17,20 @@ class DictionaryCubit extends Cubit<DictionaryState> {
     );
 
     try {
-      if(words == null){
+      if (words == null) {
         emit(ErrorState('There is some issue'));
-      }else{
-        print(words.toString());
-        WordSearchedState(words);
+      } else {
+        if (words.isEmpty) {
+          emit(WordSearchedState(
+              [WordDictionary(word: queryController.text, isValid: false)],
+              ));
+        } else {
+          emit(WordSearchedState(words));
+        }
+        emit(NoWordSearchedState());
       }
     } on Exception catch (e) {
-    emit(ErrorState(e.toString()));
+      emit(ErrorState(e.toString()));
     }
   }
 }
@@ -42,7 +48,7 @@ class WordSearchedState extends DictionaryState {
 }
 
 class ErrorState extends DictionaryState {
-  final  message;
+  final message;
 
   ErrorState(this.message);
 }

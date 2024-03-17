@@ -15,6 +15,7 @@ WordDictionary _$WordDictionaryFromJson(Map<String, dynamic> json) =>
       meanings: (json['meanings'] as List<dynamic>?)
           ?.map((e) => Meaning.fromJson(e as Map<String, dynamic>))
           .toList(),
+      isValid: json['isValid'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$WordDictionaryToJson(WordDictionary instance) =>
@@ -22,6 +23,7 @@ Map<String, dynamic> _$WordDictionaryToJson(WordDictionary instance) =>
       'word': instance.word,
       'phonetics': instance.phonetics,
       'meanings': instance.meanings,
+      'isValid': instance.isValid,
     };
 
 Meaning _$MeaningFromJson(Map<String, dynamic> json) => Meaning(

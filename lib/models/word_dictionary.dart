@@ -10,11 +10,13 @@ class WordDictionary {
     this.word,
     this.phonetics,
     this.meanings,
+    this.isValid = true,
   });
 
   String? word;
   List<Phonetic>? phonetics;
   List<Meaning>? meanings;
+  bool isValid;
 
   factory WordDictionary.fromJson(Map<String, dynamic> json) => _$WordDictionaryFromJson(json);
 
