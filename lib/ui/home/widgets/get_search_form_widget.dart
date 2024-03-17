@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:word_definition_app/block/dictionary_cubit.dart';
 
@@ -10,12 +11,12 @@ class GetSearchFormWidget extends StatelessWidget {
     final cubit = context.watch<DictionaryCubit>();
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(30),
       child: Column(
         children: [
           const Spacer(),
           const Text(
-            'Quickly search any word you desire.',
+            'Введите одно слово без пробелов для поиска в словаре',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -25,6 +26,9 @@ class GetSearchFormWidget extends StatelessWidget {
           const SizedBox(height: 32),
           TextField(
             controller: cubit.queryController,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z]+$'))
+            ],
             decoration: InputDecoration(
               hintText: 'Найдите ваше слово..',
               border: OutlineInputBorder(
@@ -42,7 +46,18 @@ class GetSearchFormWidget extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                cubit.getWordSearched();
+                if (cubit.queryController.text.isNotEmpty) {
+                  cubit.getWordSearched();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Введите слово для поиска'),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.red,
+                      margin: EdgeInsets.only(bottom: 390, left: 10, right: 10),
+                    ),
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.greenAccent,
@@ -57,8 +72,10 @@ class GetSearchFormWidget extends StatelessWidget {
   }
 }
 
-getLoadingWidget(){
-  return const Center(child: CircularProgressIndicator(),);
+getLoadingWidget() {
+  return const Center(
+    child: CircularProgressIndicator(),
+  );
 }
 
 getErrorWidget(message){
