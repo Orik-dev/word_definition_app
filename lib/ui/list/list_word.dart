@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:word_definition_app/models/word_dictionary.dart';
+import 'package:word_definition_app/ui/details/detail_word.dart';
 
 class ListWord extends StatelessWidget {
   const ListWord(
@@ -15,7 +16,7 @@ class ListWord extends StatelessWidget {
       appBar: AppBar(
         elevation: 5,
         backgroundColor: Colors.greenAccent,
-        title: Text('Вернуться назад'),
+        title: const Text('Вернуться назад'),
       ),
       body: ListView.separated(
         itemBuilder: (context, index) => ListTile(
@@ -41,6 +42,15 @@ class ListWord extends StatelessWidget {
                   backgroundColor: Colors.red,
                   behavior: SnackBarBehavior.floating,
                   margin: EdgeInsets.only(bottom: 300, left: 50, right: 50),
+                ),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailWord(
+                    words[index],
+                  ),
                 ),
               );
             }

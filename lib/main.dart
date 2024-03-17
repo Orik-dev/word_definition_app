@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:word_definition_app/block/dictionary_cubit.dart';
 import 'package:word_definition_app/repository/word_repository.dart';
@@ -27,7 +28,7 @@ class WordDefinition extends StatelessWidget {
       ),
       home: BlocProvider(
         create: (context) => DictionaryCubit(WordRepository()),
-        child:  HomePage(),
+        child:  const HomePage(),
       ),
     );
   }

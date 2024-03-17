@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:word_definition_app/block/dictionary_state.dart';
 import 'package:word_definition_app/models/word_dictionary.dart';
 import 'package:word_definition_app/repository/word_repository.dart';
 
@@ -22,33 +25,17 @@ class DictionaryCubit extends Cubit<DictionaryState> {
       } else {
         if (words.isEmpty) {
           emit(WordSearchedState(
-              [WordDictionary(word: queryController.text, isValid: false)],
-              ));
+            [WordDictionary(word: queryController.text, isValid: false)],
+          ));
         } else {
           emit(WordSearchedState(words));
         }
         emit(NoWordSearchedState());
       }
-    } on Exception catch (e) {
-      emit(ErrorState(e.toString()));
+    } on SocketException catch (e) {
+      emit(ErrorState('Отсутствет интернет-соединение'));
+    } catch (e) {
+      emit(ErrorState('Ошибка $e'));
     }
   }
-}
-
-abstract class DictionaryState {}
-
-class NoWordSearchedState extends DictionaryState {}
-
-class WordSearchingState extends DictionaryState {}
-
-class WordSearchedState extends DictionaryState {
-  final List<WordDictionary> words;
-
-  WordSearchedState(this.words);
-}
-
-class ErrorState extends DictionaryState {
-  final message;
-
-  ErrorState(this.message);
 }

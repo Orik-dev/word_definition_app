@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:word_definition_app/block/dictionary_cubit.dart';
+import 'package:word_definition_app/block/dictionary_state.dart';
 import 'package:word_definition_app/ui/home/widgets/get_search_form_widget.dart';
 import 'package:word_definition_app/ui/list/list_word.dart';
 

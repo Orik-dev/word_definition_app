@@ -26,6 +26,7 @@ class GetSearchFormWidget extends StatelessWidget {
           const SizedBox(height: 32),
           TextField(
             controller: cubit.queryController,
+            keyboardType: TextInputType.text,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z]+$'))
             ],
